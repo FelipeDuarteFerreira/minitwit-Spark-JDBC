@@ -1,6 +1,6 @@
 #MiniTwit
 
-Java version of Flask's MiniTwit example built with the Spark web microframework, Freemarker, Spring and HSQLDB (as an in-memory database).
+Java version of Flask's MiniTwit example built with the Spark web microframework, Freemarker, raw JDBC and HSQLDB (as an in-memory database).
 
 ##Prerequisites
 
@@ -23,4 +23,8 @@ MIT License
 
 See LICENSE for details.
 
-Flask's MiniTwit (c) 2015 by Armin Ronacher.
+## Credits
+
+This example app is adapted from [Spark MiniTwit](https://github.com/eh3rrera/minitwit) by Esteban Herrera.
+
+Spark MiniTwit was adapted from [Flask's MiniTwit](https://github.com/pallets/flask/tree/master/examples/minitwit) by Armin Ronacher, (c) 2015.
