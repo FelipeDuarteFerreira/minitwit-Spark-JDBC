@@ -5,15 +5,15 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.minitwit.dao.UserDao;
-import com.minitwit.dao.impl.NamedParameterJdbcTemplate.RowMapper;
+import com.minitwit.dao.impl.JdbcTemplate.RowMapper;
 import com.minitwit.model.User;
 
 public class UserDaoImpl implements UserDao {
 	
-	private NamedParameterJdbcTemplate template;
+	private JdbcTemplate template;
 
 	public UserDaoImpl(DataSource ds) {
-		template = new NamedParameterJdbcTemplate(ds);
+		template = new JdbcTemplate(ds);
 	}
 
 	@Override

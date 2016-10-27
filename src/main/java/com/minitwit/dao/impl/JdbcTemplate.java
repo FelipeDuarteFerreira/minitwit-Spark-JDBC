@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  * 
  * @author <a href='mailto:basham47@gmail.com'>Bryan Basham</a> 
  */
-public class NamedParameterJdbcTemplate {
+public class JdbcTemplate {
 	
 	@FunctionalInterface
 	public interface RowMapper<T> {
@@ -34,7 +34,7 @@ public class NamedParameterJdbcTemplate {
 	
 	private final DataSource dataSource;
 
-	public NamedParameterJdbcTemplate(final DataSource dataSource) {
+	public JdbcTemplate(final DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
@@ -63,14 +63,40 @@ public class NamedParameterJdbcTemplate {
 		}
 	}
 
-	public void update(final String sql, final Object[] params) {
-		// TODO Auto-generated method stub
-		
+	public Long queryForLong(final String sql, final Object[] params) {
+		try ( // closeable resources
+				final Connection conn = dataSource.getConnection();
+				final PreparedStatement stmt = conn.prepareStatement(sql)) {
+			// perform query
+			for (int idx = 0; idx < params.length; idx++) {
+				stmt.setObject(idx+1, params[idx]);
+			}
+			final ResultSet rs = stmt.executeQuery();
+			// expecting only one result
+			if (rs.next()) {
+				return rs.getLong(1);
+			} else {
+				throw new IllegalStateException("expecting at least one result");
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public Long queryForLong(final String sql, final Object[] params) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(final String sql, final Object[] params) {
+		try ( // closeable resources
+				final Connection conn = dataSource.getConnection();
+				final PreparedStatement stmt = conn.prepareStatement(sql)) {
+			// perform statement
+			for (int idx = 0; idx < params.length; idx++) {
+				stmt.setObject(idx+1, params[idx]);
+			}
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

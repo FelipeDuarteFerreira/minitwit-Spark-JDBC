@@ -5,7 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.minitwit.dao.MessageDao;
-import com.minitwit.dao.impl.NamedParameterJdbcTemplate.RowMapper;
+import com.minitwit.dao.impl.JdbcTemplate.RowMapper;
 import com.minitwit.model.Message;
 import com.minitwit.model.User;
 import com.minitwit.util.GravatarUtil;
@@ -14,10 +14,10 @@ public class MessageDaoImpl implements MessageDao {
 	
 	private static final String GRAVATAR_DEFAULT_IMAGE_TYPE = "monsterid";
 	private static final int GRAVATAR_SIZE = 48;
-	private NamedParameterJdbcTemplate template;
+	private JdbcTemplate template;
 
 	public MessageDaoImpl(DataSource ds) {
-		template = new NamedParameterJdbcTemplate(ds);
+		template = new JdbcTemplate(ds);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class MessageDaoImpl implements MessageDao {
 
 	@Override
 	public void insertMessage(Message m) {
-        String sql = "insert into message (author_id, text, pub_date) values (:userId, :text, :pubDate)";
+        String sql = "insert into message (author_id, text, pub_date) values (?, ?, ?)";
 		template.update(sql, new Object[] { m.getUserId(), m.getText(), m.getPubDate() });
 	}
 	
