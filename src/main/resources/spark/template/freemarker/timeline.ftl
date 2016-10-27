@@ -25,7 +25,7 @@
     <#if messages??>
     <#list messages as message>
 		<li><img src="${message.gravatar}"><p>
-		<strong><a href="/t/${message.username}">${message.username}</a></strong>
+		<strong><a href="/t/${message.user.username}">${message.user.username}</a></strong>
 		${message.text}
 		<small>&mdash; ${message.pubDateStr}</small>
 	<#else>

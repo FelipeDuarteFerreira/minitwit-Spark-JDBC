@@ -73,4 +73,9 @@ public class User {
 		
 		return error;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("{User id=%d}", id);
+	}
 }

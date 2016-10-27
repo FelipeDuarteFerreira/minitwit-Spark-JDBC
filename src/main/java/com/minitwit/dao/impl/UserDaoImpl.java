@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
         template.update(sql, new Object[] { user.getUsername(), user.getEmail(), user.getPassword() });
 	}
 
-	private RowMapper<User> userMapper = (rs, rowNum) -> {
+	static RowMapper<User> userMapper = (rs, rowNum) -> {
 		User u = new User();
 		
 		u.setId(rs.getInt("user_id"));
